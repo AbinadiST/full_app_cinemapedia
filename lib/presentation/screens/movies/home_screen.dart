@@ -12,11 +12,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text( Environment.theMovieDbKey ), //usamos la VARIABLE DE ENTORNO de archiv .env
-                                                //No continuar con video si no aparece la API KEY en la app
-      )
+    return const Scaffold(
+      body: Placeholder()
     );
   }
 }
