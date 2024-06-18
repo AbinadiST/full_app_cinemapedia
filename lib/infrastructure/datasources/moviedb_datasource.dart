@@ -1,6 +1,8 @@
 import 'package:cinemapedia/config/constants/environment.dart';
 import 'package:cinemapedia/domain/datasources/movies_datasource.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
+import 'package:cinemapedia/infrastructure/mappers/movie_mapper.dart';
+import 'package:cinemapedia/infrastructure/models/moviedb/moviedb_response.dart';
 import 'package:dio/dio.dart';
 
 // Se instala el paquete: dio (también esta http esos dos son los más populares) para hacer peticiones http, 
@@ -26,7 +28,14 @@ class MoviedbDatasource extends MoviesDatasource { //se extiende de MOVIESDATASO
   Future<List<Movie>> getNowPLaying({int page = 1}) async {
     
     final response = await dio.get('/movie/now_playing'); // empezamos con slash '/' porque arriba en BASEURL no terminamos con slash
-    final List<Movie> movies = [];
+    
+    final movieDBResponse = MovieDbResponse.fromJson(response.data);
+    
+    final List<Movie> movies = movieDBResponse.results
+    .where((moviedb) => moviedb.posterPath != 'no-poster' ) //WHERE = si POSTERPATH es diferente a NO-POSTER continúa con el código
+    .map(
+      (moviedb) => MovieMapper.movieDBToEntity(moviedb)
+      ).toList();
     
     return movies;
 
