@@ -46,19 +46,22 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     return Column(
       children: [
 
-        CustomAppbar(),
-
-        Expanded( //Envolvemos el widget con EXPANDED, lo cual, dado el padre, EXPANDE todo lo posible y tiene un ancho y alto fijo
-          child: ListView.builder(
-           itemCount: nowPlayingMovies.length,
-           itemBuilder: (context, index){
-            final movie = nowPlayingMovies[index];
-              return ListTile(
-               title: Text(movie.title),
-              );
-           }
-          ),
-        ),
+        const CustomAppbar(),
+        
+        MoviesSlideshow(movies: nowPlayingMovies)
+        
+        //* Se comenta porque ya nos dio resultado y no lo necesitamos pero se deja como un ejemplo
+        // Expanded( //Envolvemos el widget con EXPANDED, lo cual, dado el padre, EXPANDE todo lo posible y tiene un ancho y alto fijo
+        //   child: ListView.builder(
+        //    itemCount: nowPlayingMovies.length,
+        //    itemBuilder: (context, index){
+        //     final movie = nowPlayingMovies[index];
+        //       return ListTile(
+        //        title: Text(movie.title),
+        //       );
+        //    }
+        //   ),
+        // ),
 
       ],
     );
