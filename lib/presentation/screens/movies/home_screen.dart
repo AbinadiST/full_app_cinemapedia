@@ -41,14 +41,15 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   @override
   Widget build(BuildContext context) {
 
-    final nowPlayingMovies = ref.watch( nowPlayingMoviesProvider );
+    // final nowPlayingMovies = ref.watch( nowPlayingMoviesProvider );
+    final slideShowMovies = ref.watch( moviesSlideshowProvider );
 
     return Column(
       children: [
 
         const CustomAppbar(),
         
-        MoviesSlideshow(movies: nowPlayingMovies)
+        MoviesSlideshow(movies: slideShowMovies),
         
         //* Se comenta porque ya nos dio resultado y no lo necesitamos pero se deja como un ejemplo
         // Expanded( //Envolvemos el widget con EXPANDED, lo cual, dado el padre, EXPANDE todo lo posible y tiene un ancho y alto fijo
