@@ -17,5 +17,5 @@ final appRouter = GoRouter(
       builder: (context, state) => const HomeScreen(),
       ),
 
-  ]
+    ]
   );

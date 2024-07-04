@@ -1,6 +1,8 @@
 import 'package:animate_do/animate_do.dart';
+import 'package:cinemapedia/config/helpers/human_formats.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class MovieHorizontalListview extends StatelessWidget {
 
@@ -106,15 +108,20 @@ class _Slide extends StatelessWidget {
           ),
 
           //*Rating ***
-          Row(
-            children: [
-              Icon( Icons.star_half_outlined, color: Colors.yellow.shade800 ), //SHADE = Se altera en diferentes capas el amarillo (en este caso) 
-              const SizedBox( width: 3 ),
-              Text('${ movie.voteAverage }', style: textStyles.bodyMedium?.copyWith( color: Colors.yellow.shade800 )
-              ),
-              const SizedBox( width: 10 ),
-              Text('${ movie.popularity }', style: textStyles.bodySmall ),
-            ],
+          SizedBox(
+            width: 150,
+            child: Row(
+              children: [
+                Icon( Icons.star_half_outlined, color: Colors.yellow.shade800 ), //SHADE = Se altera en diferentes capas el amarillo (en este caso) 
+                const SizedBox( width: 3 ),
+                Text('${ movie.voteAverage }', style: textStyles.bodyMedium?.copyWith( color: Colors.yellow.shade800 )
+                ),
+                // const SizedBox( width: 10 ),
+                const Spacer(), // se sustituyó por el SIZEDBOX para que el conteo esté hasta la izq.
+                Text( HumanFormats.number(movie.popularity), style: textStyles.bodySmall ), // usamos la clase HUMANFORMATS para conteo legible Ej 5k 
+                
+              ],
+            ),
           )
 
         ],

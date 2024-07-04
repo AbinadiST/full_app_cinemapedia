@@ -18,7 +18,7 @@ class MoviedbDatasource extends MoviesDatasource { //se extiende de MOVIESDATASO
       BaseOptions(
         baseUrl: 'https://api.themoviedb.org/3', // Cuando usemos DIO, Indicamos que todas las peticiones tendrán el BASEURL preconfigurada
         queryParameters: {
-            'api_key': Environment.theMovieDbKey,
+            'api_key': Environment.theMovieDbKey, //son configuraciones que están en POSTMAN
             'language': 'es-MX'
           }   
         )
