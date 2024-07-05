@@ -68,7 +68,7 @@ class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
            _Title( title: widget.title, subTtile: widget.subTitle ),
 
 
-          //* Scroll horizonatal ***
+          //* Scroll horizontal ***
 
            Expanded(
             child: ListView.builder(

@@ -45,35 +45,82 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     final nowPlayingMovies = ref.watch( nowPlayingMoviesProvider );
     final slideShowMovies = ref.watch( moviesSlideshowProvider );
 
-    return Column(
-      children: [
+    return CustomScrollView( //! CUSTOMSCROLLVIEW siempre va con SLIVERS
+      slivers: [  //SLIVER trabaja directamente con el SCROLLVIEW
 
-        const CustomAppbar(),
-        
-        MoviesSlideshow(movies: slideShowMovies),
-
-        MovieHorizontalListview(
-          movies: nowPlayingMovies, // aparecerá las 20 películas en el centro de la pantalla
-          title: 'En cines',
-          subTitle: 'Lunes 20',
-          loadNextPage: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(), //READ Lo usamos al estar dentro de funciones o CALLBACKS
+        const SliverAppBar(  // APPBAR funciona directamente con el SCROLL
+          floating: true,
+          flexibleSpace: FlexibleSpaceBar(
+            title: CustomAppbar(),
+          ),
 
         ),
-        
-        //* Se comenta porque ya nos dio resultado y no lo necesitamos pero se deja como un ejemplo
-        // Expanded( //Envolvemos el widget con EXPANDED, lo cual, dado el padre, EXPANDE todo lo posible y tiene un ancho y alto fijo
-        //   child: ListView.builder(
-        //    itemCount: nowPlayingMovies.length,
-        //    itemBuilder: (context, index){
-        //     final movie = nowPlayingMovies[index];
-        //       return ListTile(
-        //        title: Text(movie.title),
-        //       );
-        //    }
-        //   ),
-        // ),
 
-      ],
+        SliverList(delegate: SliverChildBuilderDelegate(
+          (context, index) {
+
+            return Column(
+                children: [
+              
+                  //const CustomAppbar(),
+                  
+                  MoviesSlideshow(movies: slideShowMovies),
+              
+                  MovieHorizontalListview(
+                    movies: nowPlayingMovies, // aparecerá las 20 películas en el centro de la pantalla
+                    title: 'En cines',
+                    subTitle: 'Lunes 20',
+                    loadNextPage: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(), //READ Lo usamos al estar dentro de funciones o CALLBACKS
+              
+                  ),
+                  
+                  //* Se comenta porque ya nos dio resultado y no lo necesitamos pero se deja como un ejemplo
+                  // Expanded( //Envolvemos el widget con EXPANDED, lo cual, dado el padre, EXPANDE todo lo posible y tiene un ancho y alto fijo
+                  //   child: ListView.builder(
+                  //    itemCount: nowPlayingMovies.length,
+                  //    itemBuilder: (context, index){
+                  //     final movie = nowPlayingMovies[index];
+                  //       return ListTile(
+                  //        title: Text(movie.title),
+                  //       );
+                  //    }
+                  //   ),
+                  // ),
+
+                  MovieHorizontalListview(
+                    movies: nowPlayingMovies, // aparecerá las 20 películas en el centro de la pantalla
+                    title: 'Próximamente',
+                    subTitle: 'Este mes',
+                    loadNextPage: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(), //READ Lo usamos al estar dentro de funciones o CALLBACKS
+              
+                  ),
+
+                  MovieHorizontalListview(
+                    movies: nowPlayingMovies, // aparecerá las 20 películas en el centro de la pantalla
+                    title: 'Populares',
+                    //subTitle: '',
+                    loadNextPage: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(), //READ Lo usamos al estar dentro de funciones o CALLBACKS
+              
+                  ),
+
+                  MovieHorizontalListview(
+                    movies: nowPlayingMovies, // aparecerá las 20 películas en el centro de la pantalla
+                    title: 'Mejor calificadas',
+                    subTitle: 'Desde siempre',
+                    loadNextPage: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(), //READ Lo usamos al estar dentro de funciones o CALLBACKS
+              
+                  ),
+
+                  const SizedBox( height: 10),
+              
+                ],
+              );
+            },
+
+            childCount: 1
+          )
+        )
+      ] 
     );
   }
 }
