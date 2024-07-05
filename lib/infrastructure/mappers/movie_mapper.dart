@@ -9,7 +9,9 @@ import 'package:cinemapedia/infrastructure/models/moviedb/movie_moviedb.dart';
 class MovieMapper {
   //STATIC = para usar éste método sin la necesidad de INSTANCIAR LA CLASE
   static Movie movieDBToEntity(MovieMovieDB moviedb) => Movie(
-    //para ordenarlo así sería: CTRL + SHIFT + P, escribir: format, clic en DAR FORMATO AL DOCUMENTO
+
+    //! para ordenarlo así sería: CTRL + SHIFT + P, escribir: format, clic en DAR FORMATO AL DOCUMENTO
+
       adult: moviedb.adult,
       backdropPath: ( moviedb.backdropPath != '' )
         ? 'https://image.tmdb.org/t/p/w500${ moviedb.backdropPath }'
@@ -27,5 +29,6 @@ class MovieMapper {
       title: moviedb.title,
       video: moviedb.video,
       voteAverage: moviedb.voteAverage,
-      voteCount: moviedb.voteCount);
+      voteCount: moviedb.voteCount
+      );
 }

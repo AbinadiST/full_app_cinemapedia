@@ -56,6 +56,8 @@ class _HomeViewState extends ConsumerState<_HomeView> {
           movies: nowPlayingMovies, // aparecerá las 20 películas en el centro de la pantalla
           title: 'En cines',
           subTitle: 'Lunes 20',
+          loadNextPage: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(), //READ Lo usamos al estar dentro de funciones o CALLBACKS
+
         ) 
         
         //* Se comenta porque ya nos dio resultado y no lo necesitamos pero se deja como un ejemplo

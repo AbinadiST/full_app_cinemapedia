@@ -4,7 +4,7 @@ import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class MovieHorizontalListview extends StatelessWidget {
+class MovieHorizontalListview extends StatefulWidget { // lo conertimos en STATEFULWIDGET
 
   final List<Movie> movies;
   final String? title;
@@ -20,26 +20,65 @@ class MovieHorizontalListview extends StatelessWidget {
   });
 
   @override
+  State<MovieHorizontalListview> createState() => _MovieHorizontalListviewState();
+}
+
+class _MovieHorizontalListviewState extends State<MovieHorizontalListview> {
+
+  final scrollController = ScrollController(); // es como la barra de YOUTUBE donde podemos ver el punto que hemos pausado
+
+  //! Al crear el INITSTTE llevará consigo el DISPOSE que destruira esá pantalla en algún momento
+
+  @override
+  void initState() {
+    super.initState();
+
+    scrollController.addListener(() {
+      
+      if ( widget.loadNextPage == null ) return; 
+
+      //? Explicación video INFINITESCROLL HORIZONTAL minuto 3:30 
+      if ( (scrollController.position.pixels + 200) >= scrollController.position.maxScrollExtent ) {
+
+        widget.loadNextPage!();
+
+      }
+
+    }); 
+  }
+
+
+  @override
+  void dispose() {
+    scrollController.dispose();  
+    super.dispose();
+
+  }
+
+
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 350,
       child: Column(
         children: [
            
-           if ( title != null || subTitle != null )
-           _Title( title: title, subTtile: subTitle ),
+           if ( widget.title != null || widget.subTitle != null )
+           _Title( title: widget.title, subTtile: widget.subTitle ),
 
 
           //* Scroll horizonatal ***
 
            Expanded(
             child: ListView.builder(
-              itemCount: movies.length,
+              controller: scrollController,  // asociamos el controlador que creamos en el INIT
+              itemCount: widget.movies.length,
               scrollDirection: Axis.horizontal,
               physics: const BouncingScrollPhysics(), // para que se vea igual en Android i iOS
               itemBuilder: (context, index) {
                 
-                return _Slide(movie: movies[index]);
+                return _Slide(movie: widget.movies[index]);
               },
               )
             )
@@ -63,7 +102,7 @@ class _Slide extends StatelessWidget {
     final textStyles = Theme.of(context).textTheme;
 
     return Container( // colocamos un CONTAINER porque tiene el MARGIN ya que el efecto es diferente que PADDING
-      margin: EdgeInsets.symmetric( horizontal: 8 ),
+      margin: const EdgeInsets.symmetric( horizontal: 8 ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start, //para que todos sus hijos estén alineados al inicio
         children: [
