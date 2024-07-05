@@ -21,6 +21,7 @@ typedef MovieCallback = Future<List<Movie>> Function({ int page });
 class MoviesNotifier extends StateNotifier<List<Movie>> {   //si marca error en MOVIE, falta importarlo
 
   int currentPage = 0;
+  bool isLoading = false;
   MovieCallback fetchMoreMovies;
 
   MoviesNotifier({
@@ -32,10 +33,14 @@ class MoviesNotifier extends StateNotifier<List<Movie>> {   //si marca error en 
     // su objetico es hacer alguna modificacion en este STATE 
     // y el STATE es el LISTADO DE MOVIES <List<Movie>> 
 
+    if ( isLoading ) return; //? ver video EVITAR PETICIONES SIMULTANEAS para más info
+    isLoading = true;
     currentPage ++;
     final List<Movie> movies = await fetchMoreMovies( page: currentPage );
     state = [...state, ...movies];
-
+    
+    await Future.delayed(const Duration(milliseconds: 300));
+    isLoading = false;
   }
 }
 
