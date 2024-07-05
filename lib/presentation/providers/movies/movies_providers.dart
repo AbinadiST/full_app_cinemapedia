@@ -6,6 +6,10 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 // STATENOTIFIERPROVIDER = Proveedor de info. que notifica cuando cambia el estado 
 
+
+//* Playing movies ------------------------------
+
+
 final nowPlayingMoviesProvider = StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) {
 
   final fetchMoreMovies = ref.watch( movieRepositoryProvider ).getNowPLaying;
@@ -15,6 +19,24 @@ final nowPlayingMoviesProvider = StateNotifierProvider<MoviesNotifier, List<Movi
   );
 
 });
+
+//* Popular movies --------------------------------
+
+
+final popularMoviesProvider = StateNotifierProvider<MoviesNotifier, List<Movie>>((ref) {
+
+  final fetchMoreMovies = ref.watch( movieRepositoryProvider ).getPopular;
+
+  return MoviesNotifier(
+    fetchMoreMovies: fetchMoreMovies
+  );
+
+});
+
+//TODO: nombres de providers de la tarea | upcomingMoviesProvider y topRatedMoviesProvider
+
+
+//* ----------------------------------------------------
 
 typedef MovieCallback = Future<List<Movie>> Function({ int page });
 

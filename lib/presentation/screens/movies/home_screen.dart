@@ -36,6 +36,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     super.initState();
     
     ref.read( nowPlayingMoviesProvider.notifier ).loadNextPage();
+    ref.read( popularMoviesProvider.notifier ).loadNextPage();
   }
 
 
@@ -43,6 +44,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   Widget build(BuildContext context) {
 
     final nowPlayingMovies = ref.watch( nowPlayingMoviesProvider );
+    final popularMovies = ref.watch( popularMoviesProvider );
     final slideShowMovies = ref.watch( moviesSlideshowProvider );
 
     return CustomScrollView( //! CUSTOMSCROLLVIEW siempre va con SLIVERS
@@ -65,6 +67,10 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                   //const CustomAppbar(),
                   
                   MoviesSlideshow(movies: slideShowMovies),
+
+
+                  //* EN CINES  -----------------------------------------
+
               
                   MovieHorizontalListview(
                     movies: nowPlayingMovies, // aparecerá las 20 películas en el centro de la pantalla
@@ -87,6 +93,8 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                   //   ),
                   // ),
 
+                  //* PRÓXIMAMENTE -----------------------------------------------------
+
                   MovieHorizontalListview(
                     movies: nowPlayingMovies, // aparecerá las 20 películas en el centro de la pantalla
                     title: 'Próximamente',
@@ -95,13 +103,17 @@ class _HomeViewState extends ConsumerState<_HomeView> {
               
                   ),
 
+                  //* POPULARES -----------------------------------------------------------
+
                   MovieHorizontalListview(
-                    movies: nowPlayingMovies, // aparecerá las 20 películas en el centro de la pantalla
+                    movies: popularMovies, // aparecerá las 20 películas en el centro de la pantalla
                     title: 'Populares',
                     //subTitle: '',
-                    loadNextPage: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(), //READ Lo usamos al estar dentro de funciones o CALLBACKS
+                    loadNextPage: () => ref.read(popularMoviesProvider.notifier).loadNextPage(), //READ Lo usamos al estar dentro de funciones o CALLBACKS
               
                   ),
+
+                  //* MEJOR CALIFICADAS -----------------------------------------------------
 
                   MovieHorizontalListview(
                     movies: nowPlayingMovies, // aparecerá las 20 películas en el centro de la pantalla
