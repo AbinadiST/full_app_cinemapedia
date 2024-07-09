@@ -37,6 +37,8 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     
     ref.read( nowPlayingMoviesProvider.notifier ).loadNextPage();
     ref.read( popularMoviesProvider.notifier ).loadNextPage();
+    ref.read( topRatedMoviesProvider.notifier ).loadNextPage();
+    ref.read( upcomingMoviesProvider.notifier ).loadNextPage();
   }
 
 
@@ -46,6 +48,8 @@ class _HomeViewState extends ConsumerState<_HomeView> {
     final nowPlayingMovies = ref.watch( nowPlayingMoviesProvider );
     final popularMovies = ref.watch( popularMoviesProvider );
     final slideShowMovies = ref.watch( moviesSlideshowProvider );
+    final topRatedMovies = ref.watch( topRatedMoviesProvider );
+    final upcomingMovies = ref.watch( upcomingMoviesProvider );
 
     return CustomScrollView( //! CUSTOMSCROLLVIEW siempre va con SLIVERS
       slivers: [  //SLIVER trabaja directamente con el SCROLLVIEW
@@ -96,10 +100,10 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                   //* PRÓXIMAMENTE -----------------------------------------------------
 
                   MovieHorizontalListview(
-                    movies: nowPlayingMovies, // aparecerá las 20 películas en el centro de la pantalla
+                    movies: upcomingMovies, // aparecerá las 20 películas en el centro de la pantalla
                     title: 'Próximamente',
                     subTitle: 'Este mes',
-                    loadNextPage: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(), //READ Lo usamos al estar dentro de funciones o CALLBACKS
+                    loadNextPage: () => ref.read(upcomingMoviesProvider.notifier).loadNextPage(), //READ Lo usamos al estar dentro de funciones o CALLBACKS
               
                   ),
 
@@ -116,10 +120,10 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                   //* MEJOR CALIFICADAS -----------------------------------------------------
 
                   MovieHorizontalListview(
-                    movies: nowPlayingMovies, // aparecerá las 20 películas en el centro de la pantalla
+                    movies: topRatedMovies, // aparecerá las 20 películas en el centro de la pantalla
                     title: 'Mejor calificadas',
                     subTitle: 'Desde siempre',
-                    loadNextPage: () => ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(), //READ Lo usamos al estar dentro de funciones o CALLBACKS
+                    loadNextPage: () => ref.read(topRatedMoviesProvider.notifier).loadNextPage(), //READ Lo usamos al estar dentro de funciones o CALLBACKS
               
                   ),
 

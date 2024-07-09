@@ -25,12 +25,15 @@ class MoviedbDatasource extends MoviesDatasource { //se extiende de MOVIESDATASO
     ); 
 
 
+    //* Listado global para los ENDPOINTS ------------------------------------------
+
+
     List<Movie> _jsonToMovies( Map<String,dynamic> json ) { //? video OBTENER PELÍCULAS POPULARES minuto 3:00
 
     final movieDBResponse = MovieDbResponse.fromJson(json);
     
-    final List<Movie> movies = movieDBResponse.results
-    .where((moviedb) => moviedb.posterPath != 'no-poster' ) //WHERE = si POSTERPATH es diferente a NO-POSTER continúa con el código
+    final List<Movie> movies = movieDBResponse.results // RESULTS es un tipo de dato LIST de tipo MOVIES
+    .where((moviedb) => moviedb.posterPath != 'no-poster' ) //WHERE = si POSTERPATH es != a NO-POSTER continúa con el código, no mostrar sin POSTER de película
     .map(
       (moviedb) => MovieMapper.movieDBToEntity(moviedb)
       ).toList();
@@ -39,6 +42,13 @@ class MoviedbDatasource extends MoviesDatasource { //se extiende de MOVIESDATASO
 
     }
   
+
+  //! Se realizan las implementaciones ------------------------------------------
+  
+
+  //* PLAYING --------------------------------------------------------
+
+
   @override
   Future<List<Movie>> getNowPLaying({int page = 1}) async {
     
@@ -51,7 +61,11 @@ class MoviedbDatasource extends MoviesDatasource { //se extiende de MOVIESDATASO
     return _jsonToMovies(response.data); 
 
   }
+
   
+  //* POPULAR ----------------------------------------------------------
+
+
   @override
   Future<List<Movie>> getPopular({int page = 1}) async {
     
@@ -64,6 +78,39 @@ class MoviedbDatasource extends MoviesDatasource { //se extiende de MOVIESDATASO
     return _jsonToMovies(response.data);
     
   }
+
+
+  //* GET_TOP_RATED ----------------------------------------
+
+
+  @override
+  Future<List<Movie>> getTopRated({int page = 1}) async {
+    
+    final response = await dio.get('/movie/top_rated', // empezamos con slash '/' porque arriba en BASEURL no terminamos con slash
+      queryParameters: {
+        'page': page
+      }
+    );
+
+    return _jsonToMovies(response.data);
+    
+  }
+
+  //* GETUPCOMING ----------------------------------------------
+
+  @override
+  Future<List<Movie>> getUpcoming({int page = 1}) async {
+    
+    final response = await dio.get('/movie/upcoming', // empezamos con slash '/' porque arriba en BASEURL no terminamos con slash
+      queryParameters: {
+        'page': page
+      }
+    );
+
+    return _jsonToMovies(response.data);
+    
+  }
+
 
 
 }
