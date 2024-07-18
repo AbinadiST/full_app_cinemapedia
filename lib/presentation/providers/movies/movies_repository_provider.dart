@@ -15,6 +15,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final movieRepositoryProvider = Provider((ref) { // PROVIDER = Es de sólo lectura
 
-return MovieRepositoryImpl( MoviedbDatasource() ); // entre paréntesis pide el ORIGEN DE DATOS para que funcione el MOVIEREPOSITORYPROVIDER
-                                        // es el corazón de todo lo que hemos estado haciendo
+return MovieRepositoryImpl( MoviedbDatasource() ); // entre paréntesis pide el ORIGEN DE DATOS para que funcione 
+                              //el MOVIEREPOSITORYPROVIDER, es el corazón de todo lo que hemos estado haciendo
+                                        
 });

@@ -96,7 +96,7 @@ class MoviedbDatasource extends MoviesDatasource { //se extiende de MOVIESDATASO
     
   }
 
-  //* GETUPCOMING ----------------------------------------------
+  //* GET UP COMING ----------------------------------------------
 
   @override
   Future<List<Movie>> getUpcoming({int page = 1}) async {
