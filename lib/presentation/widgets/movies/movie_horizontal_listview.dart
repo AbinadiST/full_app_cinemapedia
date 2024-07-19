@@ -3,6 +3,7 @@ import 'package:cinemapedia/config/helpers/human_formats.dart';
 import 'package:cinemapedia/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 
 class MovieHorizontalListview extends StatefulWidget { // lo conertimos en STATEFULWIDGET
 
@@ -115,7 +116,7 @@ class _Slide extends StatelessWidget {
               borderRadius: BorderRadius.circular(20),
               child: Image.network(
                 movie.posterPath,
-                fit: BoxFit.cover, // toas las imágenes toman el mimso tamaño
+                fit: BoxFit.cover, // todas las imágenes toman el mismo tamaño
                 width: 150,
                 loadingBuilder: (context, child, loadingProgress) {
                   
@@ -128,7 +129,11 @@ class _Slide extends StatelessWidget {
                     );
                   }
 
-                  return FadeIn(child: child); // muestra las imagenes con efecto | puede ser también con FADEINRIGHT
+                  return GestureDetector(
+                    onTap: () => context.push('/movie/${ movie.id }'),
+                    child: FadeIn(child: child)  // muestra las imagenes con efecto | puede ser también con FADEINRIGHT
+                  );
+                  
 
                 },
               ),
