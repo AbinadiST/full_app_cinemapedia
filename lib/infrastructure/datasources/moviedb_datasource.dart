@@ -122,11 +122,11 @@ class MoviedbDatasource extends MoviesDatasource { //se extiende de MOVIESDATASO
 
     //* Realizamos el mapeo 
 
-    final movieDB = MovieDetails.fromJson( response.data );
+    final movieDetails = MovieDetails.fromJson( response.data );
 
     //* Realizamos un MAPPER
 
-    // final Movie movie = MovieMapper
+    final Movie movie = MovieMapper.movieDetailsToEntity(movieDetails);
 
     return movie;
 
