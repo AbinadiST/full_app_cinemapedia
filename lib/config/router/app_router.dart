@@ -17,9 +17,9 @@ final appRouter = GoRouter(
       builder: (context, state) => const HomeScreen(),
       routes: [
 
-      //* Para abrir una pantalla pero con un ID
+        //* Para abrir una pantalla pero con un ID
         GoRoute(
-          path: '/movie/:id',
+          path: 'movie/:id',
           name: MovieScreen.name,
           builder: (context, state) {
 
@@ -27,11 +27,11 @@ final appRouter = GoRouter(
 
             return MovieScreen( movieId: movieId );
 
-            },
-          ),
+          },
+        ),
 
-       ]
-     ),
+        ]
+      ),
 
     ]
   );
