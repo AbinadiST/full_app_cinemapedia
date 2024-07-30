@@ -34,7 +34,7 @@ class MovieMapper {
       );
 
 
-      //* otro mapper
+      //* Otro MAPPER para crear la ENTITY---------------------------------------------------------
 
       static Movie movieDetailsToEntity( MovieDetails moviedb ) => Movie(
 

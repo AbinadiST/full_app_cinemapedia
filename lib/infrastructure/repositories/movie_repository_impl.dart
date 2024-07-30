@@ -41,7 +41,7 @@ class MovieRepositoryImpl extends MoviesRepository {
   }
   
 
-  //* GET_UP_COMING -----------------------------------------------
+  //* GET_UP_COMING ------------------------------------------------------
 
 
   @override
@@ -49,6 +49,8 @@ class MovieRepositoryImpl extends MoviesRepository {
 
     return datasource.getUpcoming(page: page);
   }
+
+  //* GET MOVIE BY ID -----------------------------------------------------
   
   @override
   Future<Movie> getMovieById(String id) {
